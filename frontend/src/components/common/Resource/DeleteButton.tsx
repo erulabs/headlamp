@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { KubeObject } from '../../../lib/k8s/cluster';
 import { CallbackActionOptions, clusterAction } from '../../../redux/clusterActionSlice';
+import { EventStatus, HeadlampEventType, useTrackEvent } from '../../../redux/headlampEventSlice';
 import ActionButton from '../ActionButton';
 import { ConfirmDialog } from '../Dialog';
 import AuthVisible from './AuthVisible';
@@ -19,6 +20,7 @@ export default function DeleteButton(props: DeleteButtonProps) {
   const [openAlert, setOpenAlert] = React.useState(false);
   const location = useLocation();
   const { t } = useTranslation(['translation']);
+  const dispatchDeleteEvent = useTrackEvent(HeadlampEventType.DELETE_RESOURCE);
 
   const deleteFunc = React.useCallback(
     () => {
@@ -62,7 +64,9 @@ export default function DeleteButton(props: DeleteButtonProps) {
     >
       <ActionButton
         description={t('translation|Delete')}
-        onClick={() => setOpenAlert(true)}
+        onClick={() => {
+          setOpenAlert(true);
+        }}
         icon="mdi:delete"
       />
       <ConfirmDialog
@@ -70,7 +74,13 @@ export default function DeleteButton(props: DeleteButtonProps) {
         title={t('translation|Delete item')}
         description={t('translation|Are you sure you want to delete this item?')}
         handleClose={() => setOpenAlert(false)}
-        onConfirm={() => deleteFunc()}
+        onConfirm={() => {
+          deleteFunc();
+          dispatchDeleteEvent({
+            resource: item,
+            status: EventStatus.CONFIRMED,
+          });
+        }}
       />
     </AuthVisible>
   );

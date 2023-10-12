@@ -35,6 +35,26 @@ import {
   setDetailsViewHeaderAction,
 } from '../redux/actionButtonsSlice';
 import { setClusterChooserButtonComponent, setFunctionsToOverride } from '../redux/actions/actions';
+import {
+  addEventCallback,
+  CreateResourceEvent,
+  DeleteResourceEvent,
+  EditResourceEvent,
+  ErrorBoundaryEvent,
+  EventListEvent,
+  HeadlampEvent,
+  HeadlampEventCallback,
+  HeadlampEventType,
+  LogsEvent,
+  PluginLoadingErrorEvent,
+  PluginsLoadedEvent,
+  PodAttachEvent,
+  ResourceDetailsViewLoadedEvent,
+  ResourceListViewLoadedEvent,
+  RestartResourceEvent,
+  ScaleResourceEvent,
+  TerminalEvent,
+} from '../redux/headlampEventSlice';
 import { setRoute, setRouteFilter } from '../redux/routesSlice';
 import store from '../redux/stores/store';
 
@@ -52,7 +72,24 @@ export type {
   DetailsViewSectionProps,
   DetailsViewSectionType,
   SidebarEntryProps,
+  HeadlampEventCallback,
+  HeadlampEvent,
+  ErrorBoundaryEvent,
+  DeleteResourceEvent,
+  EditResourceEvent,
+  ScaleResourceEvent,
+  RestartResourceEvent,
+  LogsEvent,
+  TerminalEvent,
+  PodAttachEvent,
+  CreateResourceEvent,
+  PluginLoadingErrorEvent,
+  PluginsLoadedEvent,
+  ResourceDetailsViewLoadedEvent,
+  ResourceListViewLoadedEvent,
+  EventListEvent,
 };
+export const DefaultHeadlampEvents = HeadlampEventType;
 export const DetailsViewDefaultHeaderActions = DefaultHeaderAction;
 export type { AppBarActionProcessorType };
 /**
@@ -557,6 +594,10 @@ export function registerSetTokenFunction(
  */
 export function registerGetTokenFunction(override: (cluster: string) => string | undefined) {
   store.dispatch(setFunctionsToOverride({ getToken: override }));
+}
+
+export function registerHeadlampEventCallback(callback: HeadlampEventCallback) {
+  store.dispatch(addEventCallback(callback));
 }
 
 export { DefaultAppBarAction, DefaultDetailsViewSection, getHeadlampAPIHeaders };
