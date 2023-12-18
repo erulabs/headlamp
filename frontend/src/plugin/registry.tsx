@@ -37,6 +37,7 @@ import {
 import { setClusterChooserButtonComponent, setFunctionsToOverride } from '../redux/actions/actions';
 import { setRoute, setRouteFilter } from '../redux/routesSlice';
 import store from '../redux/stores/store';
+import { PluginSettingsComponentType, setPluginSettingsComponent } from './pluginsSlice';
 
 export interface SectionFuncProps {
   title: string;
@@ -559,4 +560,11 @@ export function registerGetTokenFunction(override: (cluster: string) => string |
   store.dispatch(setFunctionsToOverride({ getToken: override }));
 }
 
+export function registerPluginSettings(
+  name: string,
+  component: PluginSettingsComponentType,
+  autoSave: boolean = false
+) {
+  store.dispatch(setPluginSettingsComponent({ name, component, autoSave }));
+}
 export { DefaultAppBarAction, DefaultDetailsViewSection, getHeadlampAPIHeaders };
