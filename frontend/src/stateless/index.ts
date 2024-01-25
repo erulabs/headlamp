@@ -8,16 +8,16 @@ import store from '../redux/stores/store';
 
 let indexedDBtest: any;
 
-// Import 'fake-indexeddb' only in the testing environment
-if (process.env.NODE_ENV === 'test') {
-  import('fake-indexeddb')
-    .then(module => {
-      indexedDBtest = module.indexedDB;
-    })
-    .catch(error => {
-      console.error('Error importing fake-indexeddb:', error);
-    });
-}
+// // Import 'fake-indexeddb' only in the testing environment
+// if (process.env.NODE_ENV === 'test') {
+//   import('fake-indexeddb')
+//     .then(module => {
+//       indexedDBtest = module.indexedDB;
+//     })
+//     .catch(error => {
+//       console.error('Error importing fake-indexeddb:', error);
+//     });
+// }
 
 /**
  * ParsedConfig is the object that is fetched from the backend.
