@@ -4,6 +4,7 @@ import AuthToken from '../components/account/Auth';
 import Home from '../components/App/Home';
 import NotificationList from '../components/App/Notifications/List';
 import PluginSettings from '../components/App/PluginSettings';
+import PluginSettingsDetail from '../components/App/PluginSettings/pluginSettingsDetail';
 import Settings from '../components/App/Settings';
 import SettingsCluster from '../components/App/Settings/SettingsCluster';
 import SettingsClusters from '../components/App/Settings/SettingsClusters';
@@ -88,7 +89,6 @@ import Deployment from './k8s/deployment';
 import Job from './k8s/job';
 import ReplicaSet from './k8s/replicaSet';
 import { getCluster, getClusterPrefixedPath } from './util';
-
 export interface Route {
   /** Any valid URL path or array of paths that path-to-regexp@^1.7.0 understands. */
   path: string;
@@ -721,6 +721,18 @@ const defaultRoutes: {
     useClusterURL: false,
     noAuthRequired: true,
     component: () => <PluginSettings />,
+  },
+  pluginDetails: {
+    path: '/settings/plugins/:name',
+    exact: true,
+    name: 'Plugin Details',
+    sidebar: {
+      item: 'plugins',
+      sidebar: DefaultSidebars.HOME,
+    },
+    useClusterURL: false,
+    noAuthRequired: true,
+    component: () => <PluginSettingsDetail />,
   },
   portforwards: {
     path: '/portforwards',

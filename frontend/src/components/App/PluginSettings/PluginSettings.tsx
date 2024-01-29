@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useFilterFunc } from '../../../lib/util';
 import { PluginInfo, reloadPage, setPluginSettings } from '../../../plugin/pluginsSlice';
 import { useTypedSelector } from '../../../redux/reducers/reducers';
-import { SectionBox, SimpleTable } from '../../common';
+import { Link as HeadlampLink, SectionBox, SimpleTable } from '../../common';
 import SectionFilterHeader from '../../common/SectionFilterHeader';
 /**
  * useStyles css for alignment of the save button
@@ -177,7 +177,15 @@ export function PluginSettingsPure(props: PluginSettingsPureProps) {
               getter: plugin => {
                 return (
                   <>
-                    <Typography variant="subtitle1">{plugin.name}</Typography>
+                    <Typography variant="subtitle1">
+                      <HeadlampLink
+                        routeName={'pluginDetails'}
+                        params={{ name: plugin.name }}
+                        align="right"
+                      >
+                        {plugin.name}
+                      </HeadlampLink>
+                    </Typography>
                     <Typography variant="caption">{plugin.version}</Typography>
                   </>
                 );
