@@ -11,6 +11,7 @@ import routesReducer from '../routesSlice';
 import resourceTableReducer from './../../components/common/Resource/resourceTableSlice';
 import detailsViewSectionReducer from './../../components/DetailsViewSection/detailsViewSectionSlice';
 import sidebarReducer from './../../components/Sidebar/sidebarSlice';
+import pluginConfigReducer from './../../plugin/pluginConfigSlice';
 import uiReducer from './ui';
 
 const reducers = combineReducers({
@@ -26,6 +27,7 @@ const reducers = combineReducers({
   detailsViewSection: detailsViewSectionReducer,
   routes: routesReducer,
   sidebar: sidebarReducer,
+  pluginConfigs: pluginConfigReducer,
 });
 
 export type RootState = ReturnType<typeof reducers>;
